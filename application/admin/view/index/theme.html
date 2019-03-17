@@ -1,0 +1,34 @@
+	
+	<div class="theme-container">
+		<h1>主题头图设置</h1>
+		<div class="theme-main">
+		
+			<table cellpadding="0" cellspacing="0">
+				<tr>
+					<th>序号</th>
+					<th>主题名</th>
+					<th class="topic-img">主题图片</th>
+					<th>上传新图</th>
+					<th>编辑</th>
+				</tr>
+				{volist name="themes" id="theme"}
+				<form action="{:url('Index/replaceThemeImg')}" method="post" enctype="multipart/form-data">
+				<input type="hidden" name="the_id" value="{$theme.the_id}">
+				<tr>
+					<td>{$i}</td>
+					<td>{$theme.the_name}</td>
+					<td><img src="{$theme['img']['ima_url']}" /></td>
+					<td><input type="file" name="topic_img" /></td>
+					<td><input type="submit" value="替换" onclick="return confirm('你确定要替换此主题图吗？');" /></td>
+				</tr>
+				</form>
+				{/volist}
+			</table>
+		
+		</div>
+	</div>
+	
+	<div class="bottom">
+			2017-2018 @coypyright by 铭玺大药房
+	</div>
+	{layout name="layout" replace="[__REPLACE__]" /}

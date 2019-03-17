@@ -1,0 +1,280 @@
+<!-- 发货 隐藏模态框 -->
+	<div class="business_edit_pwd">
+		<div class="title">
+			<span >发货</span>
+			<span onclick="remove_motai('business_edit_pwd')"><img src="/static/images/cancel.png" /></span>
+		</div>
+		<div class="edit_pwd_table">
+		<form name="edit_pwd" action="{:url('Order/sendGoods')}" method="post">
+			<input type="hidden" name="ord_id" value="{$orderInfo.ord_id}" />
+			<table>
+				<tr>
+					<td>物流公司：</td>
+					<td>
+						<select name="ord_kuaidi_name">
+							<option value="0">-选择快递公司-</option>
+							{volist name="logisticsInfo" id="val"}
+								<option value="{$key}" {if condition="$key eq $orderInfo['ord_kuaidi_name']"}selected{/if}>{$val}</option>
+							{/volist}
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>快递单号：</td>
+					<td>
+						<input type="text" name="ord_kuaidi_no" value="{$orderInfo.ord_kuaidi_no}" />
+						
+					</td>
+				</tr>
+				
+				<tr>
+					<td>&nbsp;</td>
+					<td><button onclick="submit_form('edit_pwd')">确定</button></td>
+				</tr>
+			</table>
+		</form>
+		</div>
+	</div>
+	<div class="business_toumingceng"></div>
+<!--end 发货 -->
+
+<!-- 修改收货地址 隐藏模态框 -->
+	<div class="business_edit_pwd2">
+		<div class="title">
+			<span >修改收货地址</span>
+			<span onclick="remove_motai('business_edit_pwd2')"><img src="/static/images/cancel.png" /></span>
+		</div>
+		<div class="edit_pwd_table">
+		<form name="edit_address" action="{:url('Order/editOrderAddress')}" method="post">
+			<input type="hidden" name="ord_id" value="{$orderInfo.ord_id}" />
+			<input type="hidden" name="add_default" value="{$orderInfo['ord_snap_address']['add_default']}" />
+			<input type="hidden" name="user_id" value="{$orderInfo['ord_snap_address']['user_id']}" />
+			<input type="hidden" name="add_id" value="{$orderInfo['ord_snap_address']['add_id']}" />
+			<table>
+				<tr>
+					<td>收件人：</td>
+					<td><input type="text" name="shou_jian_ren" value="{$orderInfo['ord_snap_address']['add_name']}" /></td>
+				</tr>
+				<tr>
+					<td>联系方式：</td>
+					<td><input type="text" name="lian_xi_fang_shi" value="{$orderInfo['ord_snap_address']['add_phone']}" /></td>
+				</tr>
+				<tr>
+					<td>收货地区：</td>
+					<td><span id="province">{$orderInfo['ord_snap_address']['add_province']} {$orderInfo['ord_snap_address']['add_city']} {$orderInfo['ord_snap_address']['add_country']} </span><button type="button" style="padding: 2px 4px;border-radius: 2px;background-color: #ff3333;margin-left:10px;border:none;" onclick="edit_province_(this)">修改</button></td>
+					
+
+				</tr>
+				<tr>
+					<td>详细地址：</td>
+					<td><input type="text" name="xiang_xi_di_zhi" value="{$orderInfo['ord_snap_address']['add_detail']}" /></td>
+				</tr>
+				
+				<tr>
+					<td>&nbsp;</td>
+					<td><button onclick="submit_form('edit_address')">确定</button></td>
+				</tr>
+			</table>
+		</form>
+		</div>
+	</div>
+<!--end 收货地址 -->
+
+	<div class="order_detail_container">
+		<div class="order_detail_title">
+			<span>订单详情</span>
+			<span><a href="{:url('Order/allOrders')}">返回</a></span>
+		</div>
+		<!-- 订单信息 -->
+		<div class="order_info">
+			<div class="order_info_title">订单信息</div>
+			<table cellspacing="0" cellpadding="0" width="100%">
+				<tr>
+					<td width="15%" rowspan="3">&nbsp;</td>
+					<td width="10%" rowspan="3" class="td_name">订单号：</td>
+					<td width="25%" rowspan="3" class="td_content">{$orderInfo.ord_no}</td>
+					<td width="10%" rowspan="3" class="td_name">订单状态：</td>
+					<td width="15%" rowspan="3" class="td_content order_status">
+						{switch name="orderInfo['ord_status']"}
+							{case value="0"}待付款{/case}
+							{case value="1"}待发货{/case}
+							{case value="2"}已发货{/case}
+							{case value="4"}退款中{/case}
+							{case value="5"}交易完成{/case}
+							{case value="7"}退款完成{/case}
+						{/switch}
+					</td>
+
+					<td width="10%" class="td_name">下单时间：</td>
+					<td width="15%" colspan="2" class="td_content">{$orderInfo.create_time}</td>
+					<tr>
+						<td width="10%" class="td_name">支付时间：</td>
+						<td width="15%" colspan="2" class="td_content">{$orderInfo.time_end}</td>
+					</tr>
+					<tr>
+						<td width="10%" class="td_name">发货时间：</td>
+						<td width="15%" colspan="2" class="td_content">{$orderInfo.send_good_time}</td>
+					</tr>
+				</tr>
+				
+				{volist name="orderInfo['ord_snap_items']" id="order"}
+				<tr>
+					<td width="15%" style="text-align: center;"><img src="{$order.ima_url}" /></td>
+					<td width="10%" class="td_name">商品名：</td>
+					<td width="25%" class="td_content">{$order.pro_name}</td>
+					<td width="10%" class="td_name">单价：</td>
+					<td width="15%" class="td_content">¥{$order.pro_price}</td>
+					<td width="10%" class="td_name">数量：</td>
+					<td width="15%" class="td_content">{$order.counts}</td>
+				</tr>
+				{/volist}
+
+			</table>
+			<div class="price">
+				<span>商品总价格：¥{$orderInfo['ord_product_price']}</span>
+				<span>配送费：¥{$orderInfo['ord_freight_price']}</span>
+			</div>
+			<div class="total_price">
+				<span>总付款：¥{$orderInfo['ord_product_price']+$orderInfo['ord_freight_price']}</span>
+				<span>
+					{if condition="$orderInfo['ord_status'] eq 1"}
+					<button type="button" onclick="model_show('business_edit_pwd')">发货</button>
+					{/if}
+					{if condition="($orderInfo['ord_status'] eq 2) OR ($orderInfo['ord_status'] eq 5)"}
+					<button type="button"  onclick="model_show('business_edit_pwd')">修改快递单号</button>
+					{/if}
+					{if condition="$orderInfo['ord_status'] eq 4"}
+					<a href="{:url('Order/refundPrice',array('ord_id'=>$orderInfo['ord_id']))}" onclick="return confirm('您确定要为此用户退款吗？');">确认退款</a>
+					<div style="color:red;width:300px;height:60px;overflow:auto;margin-top:10px;border:1px solid #333;background-color:#d1d1d1;border-radius: 2px;font-size: 12px;font-weight: normal;">退款理由：{$orderInfo['refund_content']}</div>
+					{/if}
+					{if condition="$orderInfo['show_finish'] eq 1"}
+					<a href="{:url('Order/finshOrder',array('ord_id'=>$orderInfo['ord_id']))}" onclick="return confirm('订单发货大于'+{$orderInfo['show_finish_day']}+'天，您要手动完成订单？');">订单完成</a>
+					{/if}
+
+				</span>
+			</div>
+		</div>
+
+		<div class="address_title">
+			<div class="order_info_title">收货信息</div>
+			<div class="address_info">
+				<div class="consignee">
+					<span class="consignee_title">收件人:</span>
+					<span class="consignee_content">{$orderInfo['ord_snap_address']['add_name']}</span>
+					<span class="consignee_title">联系方式:</span>
+					<span class="consignee_content">{$orderInfo['ord_snap_address']['add_phone']}</span>
+				</div>
+				<div class="consignee">
+					<span class="consignee_title">省:</span>
+					<span class="consignee_content">{$orderInfo['ord_snap_address']['add_province']}</span>
+					<span class="consignee_title">市:</span>
+					<span class="consignee_content">{$orderInfo['ord_snap_address']['add_city']}</span>
+					<span class="consignee_title">区:</span>
+					<span class="consignee_content">{$orderInfo['ord_snap_address']['add_country']}</span>
+				</div>
+				<div class="consignee">
+					<span class="consignee_title">详细地址:</span>
+					<span class="consignee_content">{$orderInfo['ord_snap_address']['add_detail']}</span>
+					<span><button onclick="model_show('business_edit_pwd2')">修改地址</button></span>
+				</div>
+				
+			</div>
+		</div>
+
+		<div class="address_title">
+			<div class="order_info_title">物流信息</div>
+			{if condition="$orderInfo['logistics'] eq ''"}
+			 <div class="no_wuliu">暂无信息</div> 
+			 {else /}
+			 	{if condition="$orderInfo['logistics']['status'] eq 0"}
+					{volist name="$orderInfo['logistics']['result']['list']" id="item"}
+					<div class="wuliu_item"> <!-- #4fc988 -->
+						<span>{$item.time}</span>
+						<span>{$item.status}</span>
+					</div>
+					{/volist}
+			 	{else /}
+					<div style="color: red;width: 100%;height: 80px;display: flex;justify-content: center;align-items: center;font-size: 26px;font-weight: bolder;">查询失败：{$orderInfo['logistics']['status']} {$orderInfo['logistics']['msg']}</div>
+			 	{/if}
+			 	
+			{/if}
+			
+		</div>
+
+	</div>
+
+	<script>
+		$(function(){
+			$(".order_detail_container .address_title .wuliu_item:eq(0)").css('color','#3399ff');
+			//get_freight();
+		});
+
+
+		function edit_province_(the){
+			var pid=0;
+
+			var params = {
+				'type':'GET',
+				'url':'/index.php/admin/Product/getRegionsByAjax',
+				'data':{province_id:pid},
+				sCallback:function(res){
+					if(res.error==0){
+						$(the).remove();
+						var html = "";
+						html += "<select name='province' onchange='edit_city_(this)'>";
+
+						var obj = res.data,
+							len = obj.length;
+						for(var i=0;i<len;i++){
+							html +="<option value='"+obj[i].fre_id+"'>"+obj[i].fre_region+"</option>";
+						}
+						html += "</select>";
+
+						$('#province').html(html);
+					}else{
+						alert(res.msg);
+					}
+					
+				}
+			};
+			ajaxRequest(params);			
+		}
+
+		function edit_city_(the){
+			var pid = $(the).val();
+
+			var params = {
+				'type':'GET',
+				'url':'/index.php/admin/Product/getRegionsByAjax',
+				'data':{province_id:pid},
+				sCallback:function(res){
+					if(res.error==0){
+						var html = "";
+						html += "<select name='city'>";
+
+						var obj = res.data,
+							len = obj.length;
+						for(var i=0;i<len;i++){
+							html +="<option value='"+obj[i].fre_id+"'>"+obj[i].fre_region+"</option>";
+						}
+						html += "</select>";
+
+						$(the).nextAll().remove();
+						$(the).parent().append(html);
+						var country = "<input type='text' name='country' placeholder='区/县/镇' style='margin-bottom:10px;' />"
+						$(the).parent().append(country);
+					}else{
+						alert(res.msg);
+					}
+					
+				}
+			};
+			ajaxRequest(params);	
+		}
+
+		</script>
+
+	<div class="bottom">
+			2017-2018 @coypyright by 铭玺大药房
+	</div>
+{layout name="layout" replace="[__REPLACE__]" /}

@@ -1,0 +1,114 @@
+<!-- 添加分类 隐藏模态框 -->
+	<div class="add_category_model">
+		<div class="title">
+			<span >添加分类</span>
+			<span onclick="remove_motai('add_category_model')"><img src="/static/images/cancel.png" /></span>
+		</div>
+		<div class="edit_pwd_table">
+		<form name="add_category" action="{:url('Product/addCategory')}" method="post" enctype="multipart/form-data">
+			<table>
+				<tr>
+					<td>分类名:</td>
+					<td><input type="text" name="category" /></td>
+				</tr>
+				<tr>
+					<td>分类头图:</td>
+					<td><input type="file" name="topic_img" /></td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+					<td><button onclick="submit_form('add_category')">添加</button></td>
+				</tr>
+			</table>
+		</form>
+		</div>
+	</div>
+	<div class="business_toumingceng"></div>
+<!--end 添加分类 -->
+<!-- 编辑分类 隐藏模态框 -->
+	<div class="edit_category_model">
+		<div class="title">
+			<span >编辑分类</span>
+			<span onclick="remove_motai('edit_category_model')"><img src="/static/images/cancel.png" /></span>
+		</div>
+		<div class="edit_pwd_table">
+		<form name="edit_category" action="{:url('Product/editCategory')}" method="post" enctype="multipart/form-data">
+			<input type="hidden" name="cat_id" value="0" />
+			<table>
+				<tr>
+					<td>分类名:</td>
+					<td><input type="text" name="category" /></td>
+				</tr>
+				<tr>
+					<td>分类头图:</td>
+					<td><input type="file" name="topic_img" /></td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+					<td><button onclick="submit_form('edit_category')">确定</button></td>
+				</tr>
+			</table>
+		</form>
+		</div>
+	</div>
+	<!-- <div class="business_toumingceng"></div> -->
+<!--end 编辑分类 -->
+
+	<div class="category_main">
+		<table cellpadding="0" cellspacing="0">
+			<tr>
+				<th>序号</th>
+				<th>分类名称</th>
+				<th>分类头图</th>
+				<th>创建时间</th>
+				<th>操作</th>
+			</tr>
+			{volist name="categorys" id="category"}
+			<tr>
+				<td>{$i}</td>
+				<td>{$category['cat_name']}</td>
+				<td><img src="{$category['img']['ima_url']}" /></td>
+				
+				<td>{$category['create_time']}</td>
+				<td>
+					<span onclick="editCategory('{$category.cat_id}')">编辑</span>
+					<span><a href="{:url('Product/deleteCategory',array('id'=>$category['cat_id']))}" onclick="return confirm('此分类下没有商品才可删除，您确定要删除此分类吗？');">删除</a></span>
+				</td>
+			</tr>
+			{/volist}
+		</table>
+		<div class="addCategotyBut">
+			<button onclick="model_show('add_category_model')">添加分类</button>
+		</div>
+	</div>
+
+	<script>
+		//点击编辑分类
+		function editCategory(id){
+			$.ajax({
+				type:'GET',
+				url:'/index.php/Admin/Product/getCategoryById',
+				data:{id:id},
+				dataType:'json',
+				success:function(res){
+					if(res.error==0){
+						//显示模态框
+						model_show('edit_category_model')
+						//填充数据
+						$(".edit_category_model [name='cat_id']").val(res.data.cat_id);
+						$(".edit_category_model [name='category']").val(res.data.cat_name);
+					}else{
+						alert(res.msg);
+					}
+				},
+				error:function(res){
+					alert("ajax请求失败");
+				}
+			});
+		}
+	</script>
+
+	<div class="bottom">
+			2017-2018 @coypyright by 铭玺大药房
+	</div>
+{layout name="layout" replace="[__REPLACE__]" /}

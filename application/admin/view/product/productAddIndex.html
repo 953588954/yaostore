@@ -1,0 +1,189 @@
+<!-- 添加剂型 隐藏模态框 -->
+	<div class="business_edit_pwd">
+		<div class="title">
+			<span >添加剂型</span>
+			<span onclick="remove_motai('business_edit_pwd')"><img src="/static/images/cancel.png" /></span>
+		</div>
+		<div class="edit_pwd_table">
+		<form name="add_dosage" action="{:url('Product/addDosage')}" method="post">
+			<table>
+				<tr>
+					<td>剂型名:</td>
+					<td><input type="text" name="dosage" /></td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+					<td><button onclick="submit_form('add_dosage')">添加</button></td>
+				</tr>
+			</table>
+		</form>
+		</div>
+	</div>
+	<div class="business_toumingceng"></div>
+<!--end 添加剂型 -->
+
+
+
+	<div class="product_main">
+		<div class="title">
+			<div class="on" attr="attr_gong">共有属性</div>
+			<div attr="attr_fei">非必须属性</div>
+		</div>
+		<div class="product_attr">
+		<form action="{:url('Product/addProduct')}" method="post" name="add_product" enctype="multipart/form-data">
+			<div class="attr_gong">
+				<table>
+					<tr>
+						<td>商品名：</td>
+						<td><input type="text" name="name" /></td>
+					</tr>
+					<tr>
+						<td>规格：</td>
+						<td><input type="text" placeholder="3.5g*10包" name="specification" /></td>
+					</tr>
+					<tr>
+						<td>价格：</td>
+						<td><input type="text" name="price" /></td>
+					</tr>
+					<tr>
+						<td>库存：</td>
+						<td><input type="number" name="stock" /></td>
+					</tr>
+					<tr>
+						<td>剂型：</td>
+						<td>
+							<select name="dosage">
+								<option value="0">请选择...</option>
+								{volist name="dosages" id="dosage"}	
+								<option value="{$dosage.dos_id}">{$dosage.dos_name}</option>
+								{/volist}
+							</select>
+							<span class="add" onclick="model_show('business_edit_pwd')">+</span>
+						</td>
+					</tr>
+					<tr>
+						<td>分类：</td>
+						<td>
+							<select name="category">
+								<option value="0">请选择...</option>	
+								{volist name="categorys" id="category"}
+								<option value="{$category.cat_id}">{$category.cat_name}</option>
+								{/volist}
+							</select>
+							<!-- <span class="add" onclick="model_show('add_category_model')">+</span> -->
+						</td>
+					</tr>
+					<tr>
+						<td>运费：</td>
+						<td>
+							<input type="radio" value="1" name="freight" checked="checked" />有运费
+							<input type="radio" value="0" name="freight" />包邮
+						</td>
+					</tr>
+					<tr>
+						<td>是否热卖：</td>
+						<td>
+							<input type="radio" value="1" name="is_hot" />是
+							<input type="radio" value="0" name="is_hot" checked="checked" />否
+							
+						</td>
+					</tr>
+					<tr>
+						<td>是否推荐：</td>
+						<td>
+							<input type="radio" value="1" name="is_recommend" />是
+							<input type="radio" value="0" name="is_recommend" checked="checked" />否
+							
+						</td>
+					</tr>
+					<tr>
+						<td>是否上架：</td>
+						<td>
+							<input type="radio" value="1" name="is_onsale" checked="checked" />是
+							<input type="radio" value="0" name="is_onsale" />否
+							
+						</td>
+					</tr>
+					<tr>
+						<td>售后说明：</td>
+						<td>
+							<textarea name="after_sale"></textarea>
+						</td>
+					</tr>
+					<tr>
+						<td>商品图片：<br/><span class="tipp">（请上传1~5张图片）</span></td>
+						<td><input type="file" name="img[]" /> <span class="add" onclick="imgFileAdd(this)">+</span></td>
+					</tr>
+				</table>
+			</div>
+			<div class="attr_fei">
+				<table>
+					<tr>
+						<td>品牌：</td>
+						<td><input type="text" name="brand" /></td>
+					</tr>
+					<tr>
+						<td>生产商：</td>
+						<td><input type="text" name="producer" /></td>
+					</tr>
+					<tr>
+						<td>批准文号：</td>
+						<td><input type="text" name="approval_number" /></td>
+					</tr>
+					<tr>
+						<td>储藏方式：</td>
+						<td><input type="text" placeholder="密封" name="deposit" /></td>
+					</tr>
+					<tr>
+						<td>功效：</td>
+						<td><textarea name="effect"></textarea></td>
+					</tr>
+					<tr>
+						<td>禁忌：</td>
+						<td><textarea name="taboo"></textarea></td>
+					</tr>
+					<tr>
+						<td colspan="2" class="submit">
+							<button onclick="return form_submit('add_product')" class="sub_but">提交</button>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</form>
+		</div>
+	</div>
+
+	<script>
+		$(function(){
+			$(".product_main .product_attr .attr_gong").show();
+			$(".product_main .product_attr .attr_fei").hide();
+
+			$(".product_main .title div").click(function(){
+				$(".product_main .title div").removeClass('on');
+				$(this).addClass('on');
+				if($(this).attr('attr')=='attr_gong'){
+					$(".product_main .product_attr .attr_gong").show();
+					$(".product_main .product_attr .attr_fei").hide();
+				}else{
+					$(".product_main .product_attr .attr_gong").hide();
+					$(".product_main .product_attr .attr_fei").show();
+				}
+			});
+		});
+
+		//点击添加图片input
+		function imgFileAdd(the){
+			var imgs_count = $(".product_main [name='img[]']").length;
+			if(imgs_count>4){
+				$(the).hide();
+				return;
+			}
+			var str = "<tr><td>&nbsp;</td><td><input type='file' name='img[]' /></td></tr>";
+			$(the).parent().parent().after(str);
+		}
+		
+	</script>
+	<div class="bottom">
+			2017-2018 @coypyright by 铭玺大药房
+	</div>
+{layout name="layout" replace="[__REPLACE__]" /}

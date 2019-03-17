@@ -1,0 +1,50 @@
+<!-- 添加角色 隐藏模态框 -->
+	<div class="add_role">
+		<div class="title">
+			<span >添加角色</span>
+			<span onclick="remove_motai('add_role')"><img src="/static/images/cancel.png" /></span>
+		</div>
+		<div class="add_role_table">
+			<form action="{:url('Auth/addRole')}" method="post" name="addrole">
+			<table>
+				<tr>
+					<td>角色名：</td>
+					<td><input type="text" name="role_name" /></td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+					<td><button onclick="submit_form('addrole')">确定</button></td>
+				</tr>
+			</table>
+			</form>
+		</div>
+	</div>
+	<div class="business_toumingceng"></div>
+<!--end 添加角色 -->
+		
+	<div class="role_main">
+		<table>
+			<tr>
+				<td style="width: 10%;">序号</td>
+				<td style="width: 35%;">名称</td>
+				<td style="width: 35%;">创建时间</td>
+				<td style="width: 20%;">编辑</td>
+			</tr>
+			<tr>
+				<td>1</td>
+				<td>超级管理员</td>
+				<td>2017-12-16 21:06</td>
+				<td>
+					<img src="/static/images/edit.png" title="编辑权限" />
+					<img src="/static/images/delete2.png" title="删除" />
+				</td>
+			</tr>
+		</table>
+		<div class="but">
+			<button onclick="model_show('add_role')">添加角色</button>
+		</div>
+	</div>
+	<div class="bottom">
+			2017-2018 @coypyright by 铭玺大药房
+	</div>
+{layout name="layout" replace="[__REPLACE__]" /}

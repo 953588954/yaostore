@@ -1,0 +1,54 @@
+
+<!-- 修改密码 隐藏模态框 -->
+	<div class="business_edit_pwd">
+		<div class="title">
+			<span >修改密码</span>
+			<span onclick="remove_motai('business_edit_pwd')"><img src="/static/images/cancel.png" /></span>
+		</div>
+		<div class="edit_pwd_table">
+		<form name="edit_pwd" action="{:url('Index/editPwd')}" method="post">
+			<table>
+				<tr>
+					<td>用户名：</td>
+					<td>{$Think.session.rootInfo['root_name']}</td>
+				</tr>
+				<tr>
+					<td>预留手机号：</td>
+					<td><input type="number" name="phone" /></td>
+				</tr>
+				<tr>
+					<td>新密码：</td>
+					<td><input type="password" name="new_pwd" /></td>
+				</tr>
+				<tr>
+					<td>确认密码：</td>
+					<td><input type="password" name="check_pwd" /></td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+					<td><button onclick="submit_form('edit_pwd')">确定</button></td>
+				</tr>
+			</table>
+		</form>
+		</div>
+	</div>
+	<div class="business_toumingceng"></div>
+<!--end 修改密码 -->
+<div class="business_contanier">
+		<div class="user_tip">
+			<img src="/static/images/sun.png" />
+			<span>{$Think.session.rootInfo['root_name']} 早上好，欢迎使用信息管理系统</span>
+
+		</div>
+		<div class="user_lasttime">
+			<img src="/static/images/time.png" />
+			<span>您上次登录的时间：{$Think.session.rootInfo['root_last_time']|date="Y-m-d H:i:s",###} （不是您登录的？&nbsp;<span style="color: #3186c8;cursor: pointer;" onclick="model_show('business_edit_pwd')">请点这里</span>）</span>
+
+		</div>
+		<div class="line"></div>
+		
+	</div>
+	<div class="bottom">
+			2017-2018 @coypyright by 铭玺大药房
+	</div>
+{layout name="layout" replace="[__REPLACE__]" /}

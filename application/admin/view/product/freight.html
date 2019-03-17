@@ -1,0 +1,138 @@
+<!-- ajax修改价格成功后提示框 -->
+	<div class="success_tip">
+		<img src="/static/images/success.png" width="80px" height="50px" /> 修改成功
+	</div>
+ <!-- end -->
+<div class="freight_main">
+	<div class="title">
+		<span class="on_class" id="freight_info" onclick="toggle('freight_info','add_province')">运费设置</span>
+		<span class="nomal_title" id="add_province" onclick="toggle('add_province','freight_info')">添加省市</span>
+	</div>
+
+	<div class="freight_info">
+		<div class="main">
+			<div class="main_top">
+				<span>省</span>
+				<span>市</span>
+				<span>运费（元）</span>
+				<span>操作</span>
+			</div>
+			<div class="main_left">
+				{volist name="provinces" id="val"}
+				<div class="province_item {if condition='$val.fre_id eq 1'}on{/if}" freid="{$val.fre_id}" onclick="province_click(this)">{$val.fre_region}</div>
+				{/volist}
+				
+			</div>
+			<div class="main_right">
+				<div class="city_item">
+					<div class="city">{$sheng.fre_region}</div>
+					<div><input type="number" value="{$sheng.fre_price}" id="pre_{$sheng.fre_id}" /></div>
+					<div class="edit"><a href="javascript:void();" onclick="price_edit('{$sheng.fre_id}')">修改</a></div>
+				</div>	
+				{volist name="regions" id="region"}
+				<div class="city_item">
+					<div class="city">{$region.fre_region}</div>
+					<div><input type="number" value="{$region.fre_price}" id="pre_{$region.fre_id}" /></div>
+					<div class="edit"><a href="javascript:void();" onclick="price_edit('{$region.fre_id}')">修改</a></div>
+				</div>		
+				{/volist}
+			</div>
+
+			
+		</div>
+		<div class="freight_tip">注：(设置运费-1，则该地区不配送。默认运费为0，不收运费。若设置省级运费不为0，则该省下所有地区运费跟随省级)</div>
+	</div>
+
+	<div class="add_province">
+		<form action="{:url('Product/provinceAdd')}" name="add_province_form" method="get">
+		<div class="add_">
+			<span>
+			省/自治区/直辖市：<input type="text" name="province_name" /> 
+			</span>
+			<span><button onclick="submit_form('add_province_form')">添加</button></span>
+		</div>
+		</form>
+		<form action="{:url('Product/regionAdd')}" method="post" name="add_region_form">
+		<div class="add_city">
+			<h1>添加城市</h1>
+			<table>
+				<tr>
+					<td>选择省份：</td>
+					<td>
+						<select name="pid">
+							<option value="0">请选择....</option>
+							{volist name="provinces" id="province"}
+								<option value="{$province.fre_id}">{$province.fre_region}</option>
+							{/volist}
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>城市：</td>
+					<td><input type="text" name="region_name[]" /> <span class="add_btn" onclick="add_input(this)">+</span> </td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+					<td><button onclick="submit_form('add_region_form')">添加</button></td>
+				</tr>
+			</table>
+		</div>
+		</form>
+		<div class="delete_city">
+			<form name="delte_region" method="post" action="{:url('Product/delProvinceOrRegion')}">
+			<h1>删除省/市</h1>
+			<div class="del_province first">
+				<div>选择省份：</div>
+				<div>
+					<select onchange="region_select()" id="province" name="province">
+						<option value="0">请选择...</option>
+						{volist name="provinces" id="province"}
+							<option value="{$province.fre_id}" >{$province.fre_region}</option>
+						{/volist}
+					</select>
+				</div>
+			</div>
+			<div class="del_region del_province">
+				<div>选择市/区：</div>
+				<div >
+					<select name="region" id="region">
+						<option value="0">请选择...</option>
+					</select>
+				</div>
+			</div>
+			<div class="del_button">
+				<button onclick="return befor_sub('delte_region')">删除</button>
+			</div>
+			<div class="description">注：若只选择省，不选择市/区，则删除此省份及全部下属市区</div>
+			</form>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+	$(".success_tip").hide();
+	$(".freight_info").show();
+	$(".add_province").hide();
+
+	function toggle(cls1,cls2){
+		$("#"+cls1).removeClass("on_class");
+		$("#"+cls1).removeClass("nomal_title");
+		$("#"+cls2).removeClass("on_class");
+		$("#"+cls2).removeClass("nomal_title");
+		$("#"+cls1).addClass("on_class");
+		$("#"+cls2).addClass("nomal_title");
+		$("."+cls1).show();
+		$("."+cls2).hide();
+	}
+
+	function add_input(the){
+		var str = "<tr><td>&nbsp;</td><td><input type='text' name='region_name[]' /> <span class='add_btn' onclick='add_input(this)'>+</span></td></tr>";
+			//console.log($(the));
+		$(the).parent().parent().after(str);
+	}
+</script>
+
+
+	<div class="bottom">
+			2017-2018 @coypyright by 铭玺大药房
+	</div>
+{layout name="layout" replace="[__REPLACE__]" /}

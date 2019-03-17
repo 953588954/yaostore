@@ -1,0 +1,115 @@
+
+		
+	<div class="products_main">
+		<!-- 筛选条件title -->
+		<div class="condition_title">
+			<span style="font-size: 15px;font-weight: bold;">商品筛选</span>
+			<span style="font-size: 14px;">共 <font color="red">{$count}</font>个商品</span>
+		</div>
+		<!--end 筛选条件title -->
+
+		<!-- 筛选条件 -->
+		<div class="conditions">
+				<!-- 分类条件 -->
+				<div class="condition_item">
+					<div class="con_title">分类</div>
+					<div class="con_main">
+						<span class="con_main_item {if condition='$param.category eq 0'}on{/if}"><a href="{:url('Product/product',array('category'=>0,'dosage'=>$param['dosage'],'postage'=>$param['postage'],'is_hot'=>$param['is_hot'],'is_recommend'=>$param['is_recommend'],'is_onsale'=>$param['is_onsale']))}">全部</a></span>
+						{volist name="categorys" id="category"}
+						<span class="con_main_item {if condition='$param.category eq $category.cat_id'}on{/if}"><a href="{:url('Product/product',array('category'=>$category['cat_id'],'dosage'=>$param['dosage'],'postage'=>$param['postage'],'is_hot'=>$param['is_hot'],'is_recommend'=>$param['is_recommend'],'is_onsale'=>$param['is_onsale']))}">{$category.cat_name}</a></span>
+						{/volist}
+					</div>
+					
+				</div>
+				<!-- 剂型 -->
+				<div class="condition_item">
+					<div class="con_title">剂型</div>
+					<div class="con_main">
+						<span class="con_main_item {if condition='$param.dosage eq 0'}on{/if}"><a href="{:url('Product/product',array('category'=>$param['category'],'dosage'=>0,'postage'=>$param['postage'],'is_hot'=>$param['is_hot'],'is_recommend'=>$param['is_recommend'],'is_onsale'=>$param['is_onsale']))}">全部</a></span>
+						{volist name="dosages" id="dosage"}
+						<span class="con_main_item {if condition='$param.dosage eq $dosage.dos_id'}on{/if}"><a href="{:url('Product/product',array('category'=>$param['category'],'dosage'=>$dosage['dos_id'],'postage'=>$param['postage'],'is_hot'=>$param['is_hot'],'is_recommend'=>$param['is_recommend'],'is_onsale'=>$param['is_onsale']))}">{$dosage.dos_name}</a></span>
+						{/volist}
+					</div>	
+				</div>
+				<!-- 是否免邮 -->
+				<div class="condition_item">
+					<div class="con_title">是否包邮</div>
+					<div class="con_main">
+						<span class="con_main_item {if condition='$param.postage eq 3'}on{/if}"><a href="{:url('Product/product',array('category'=>$param['category'],'dosage'=>$param['dosage'],'postage'=>3,'is_hot'=>$param['is_hot'],'is_recommend'=>$param['is_recommend'],'is_onsale'=>$param['is_onsale']))}">全部</a></span>
+						<span class="con_main_item {if condition='$param.postage eq 0'}on{/if}"><a href="{:url('Product/product',array('category'=>$param['category'],'dosage'=>$param['dosage'],'postage'=>0,'is_hot'=>$param['is_hot'],'is_recommend'=>$param['is_recommend'],'is_onsale'=>$param['is_onsale']))}">是</a></span>
+						<span class="con_main_item {if condition='$param.postage eq 1'}on{/if}"><a href="{:url('Product/product',array('category'=>$param['category'],'dosage'=>$param['dosage'],'postage'=>1,'is_hot'=>$param['is_hot'],'is_recommend'=>$param['is_recommend'],'is_onsale'=>$param['is_onsale']))}">否</a></span>
+					</div>	
+				</div>
+				<!-- 是否热卖 -->
+				<div class="condition_item">
+					<div class="con_title">是否热卖</div>
+					<div class="con_main">
+						<span class="con_main_item {if condition='$param.is_hot eq 3'}on{/if}"><a href="{:url('Product/product',array('category'=>$param['category'],'dosage'=>$param['dosage'],'postage'=>$param['postage'],'is_hot'=>3,'is_recommend'=>$param['is_recommend'],'is_onsale'=>$param['is_onsale']))}">全部</a></span>
+						<span class="con_main_item {if condition='$param.is_hot eq 1'}on{/if}"><a href="{:url('Product/product',array('category'=>$param['category'],'dosage'=>$param['dosage'],'postage'=>$param['postage'],'is_hot'=>1,'is_recommend'=>$param['is_recommend'],'is_onsale'=>$param['is_onsale']))}">是</a></span>
+						<span class="con_main_item {if condition='$param.is_hot eq 0'}on{/if}"><a href="{:url('Product/product',array('category'=>$param['category'],'dosage'=>$param['dosage'],'postage'=>$param['postage'],'is_hot'=>0,'is_recommend'=>$param['is_recommend'],'is_onsale'=>$param['is_onsale']))}">否</a></span>
+					</div>	
+				</div>
+				<!-- 是否推荐 -->
+				<div class="condition_item">
+					<div class="con_title">是否推荐</div>
+					<div class="con_main">
+						<span class="con_main_item {if condition='$param.is_recommend eq 3'}on{/if}"><a href="{:url('Product/product',array('category'=>$param['category'],'dosage'=>$param['dosage'],'postage'=>$param['postage'],'is_hot'=>$param['is_hot'],'is_recommend'=>3,'is_onsale'=>$param['is_onsale']))}">全部</a></span>
+						<span class="con_main_item {if condition='$param.is_recommend eq 1'}on{/if}"><a href="{:url('Product/product',array('category'=>$param['category'],'dosage'=>$param['dosage'],'postage'=>$param['postage'],'is_hot'=>$param['is_hot'],'is_recommend'=>1,'is_onsale'=>$param['is_onsale']))}">是</a></span>
+						<span class="con_main_item {if condition='$param.is_recommend eq 0'}on{/if}"><a href="{:url('Product/product',array('category'=>$param['category'],'dosage'=>$param['dosage'],'postage'=>$param['postage'],'is_hot'=>$param['is_hot'],'is_recommend'=>0,'is_onsale'=>$param['is_onsale']))}">否</a></span>
+					</div>	
+				</div>
+				<!-- 是否上架 -->
+				<div class="condition_item">
+					<div class="con_title">是否上架</div>
+					<div class="con_main">
+						<span class="con_main_item {if condition='$param.is_onsale eq 3'}on{/if}"><a href="{:url('Product/product',array('category'=>$param['category'],'dosage'=>$param['dosage'],'postage'=>$param['postage'],'is_hot'=>$param['is_hot'],'is_recommend'=>$param['is_recommend'],'is_onsale'=>3))}">全部</a></span>
+						<span class="con_main_item {if condition='$param.is_onsale eq 1'}on{/if}"><a href="{:url('Product/product',array('category'=>$param['category'],'dosage'=>$param['dosage'],'postage'=>$param['postage'],'is_hot'=>$param['is_hot'],'is_recommend'=>$param['is_recommend'],'is_onsale'=>1))}">是</a></span>
+						<span class="con_main_item {if condition='$param.is_onsale eq 0'}on{/if}"><a href="{:url('Product/product',array('category'=>$param['category'],'dosage'=>$param['dosage'],'postage'=>$param['postage'],'is_hot'=>$param['is_hot'],'is_recommend'=>$param['is_recommend'],'is_onsale'=>0))}">否</a></span>
+					</div>	
+				</div>
+				
+		</div>
+		<!--end 筛选条件 -->
+
+		<!-- 商品内容 -->
+		<div class="products">
+			<div class="product_title">
+				<span>序号</span>
+				<span>商品名</span>
+				<span>商品主图</span>
+				<span>价格</span>
+				<span>库存</span>
+				<span>分类</span>
+				<span>是否免邮</span>
+				<span>是否热卖</span>
+				<span>是否推荐</span>
+				<span>操作</span>
+			</div>
+			{volist name="products" id="product"}
+			<div class="product_data">
+				<span>{$i}</span>
+				<span>{$product.pro_name}</span>
+				<span><img src="{$product['mainImg']['ima_url']}" /></span>
+				<span>{$product.pro_price}</span>
+				<span>{$product.pro_stock}</span>
+				<span>{$product['cate']['cat_name']}</span>
+				<span>{if condition="$product.pro_postage eq 0"}✔{else /}✘{/if}</span>
+				<span>{if condition="$product.pro_is_hot eq 1"}✔{else /}✘{/if}</span>
+				<span>{if condition="$product.pro_is_recommend eq 1"}✔{else /}✘{/if}</span>
+				<span><a href="{:url('Product/editProduct',array('pro_id'=>$product.pro_id))}" class="detail_a">查看详情</a></span>
+			</div>
+			{/volist}
+			
+			<!-- 分页 -->
+			<div class="page">
+				{$page}
+			</div>
+		</div>
+		
+		<!--end 商品内容 -->
+	</div>
+
+	<div class="bottom">
+			2017-2018 @coypyright by 铭玺大药房
+	</div>
+{layout name="layout" replace="[__REPLACE__]" /}

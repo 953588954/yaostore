@@ -1,0 +1,95 @@
+<!-- 添加用户 隐藏模态框 -->
+	<div class="add_root">
+		<div class="title">
+			<span class="edit_title">添加用户</span>
+			<span onclick="remove_motai('add_root')"><img src="/static/images/cancel.png" /></span>
+		</div>
+		<div class="add_root_table">
+			<form action="{:url('Auth/addOrEditRoot')}" method="post" name="addroot">
+			<input type="hidden" name="root_id" value="">
+			<table>
+				<tr>
+					<td>姓名：</td>
+					<td><input type="text" name="root_name" /></td>
+				</tr>
+				<tr>
+					<td>性别：</td>
+					<td class="radio"><input type="radio" name="root_sex" value="1" />男&nbsp;<input type="radio" name="root_sex" value="2" />女&nbsp;<input type="radio" name="root_sex" value="3" checked="checked" />未知</td>
+
+				</tr>
+				<tr>
+					<td>账号：</td>
+					<td><input type="text" name="root_username" /></td>
+				</tr>
+				<tr class="root_pwd_class">
+					<td>密码：</td>
+					<td><input type="password" name="root_pwd" /></td>
+				</tr>
+				<tr>
+					<td>预留手机号：</td>
+					<td><input type="number" name="root_phone" /></td>
+				</tr>
+				<tr>
+					<td>选择角色：</td>
+					<td>
+						<select name="role_id">
+							<option value="0">请选择...</option>
+							{volist name="allRole" id="val"}
+							<option value="{$val.role_id}">{$val.role_name}</option>
+							{/volist}
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>&nbsp;</td>
+					<td><button onclick="submit_form('addroot')">确定</button></td>
+				</tr>
+			</table>
+			</form>
+		</div>
+	</div>
+	<div class="business_toumingceng"></div>
+<!--end 添加用户 -->
+
+<!-- 编辑用户 -->
+	
+<!-- end编辑用户 -->
+
+	<div class="root_main">
+		<table>
+			<tr>
+				<td style="width: 10%;">序号</td>
+				<td style="width: 15%;">姓名</td>
+				<td style="width: 10%;">性别</td>
+				<td style="width: 20%;">创建时间</td>
+				<td style="width: 25%;">上次登录时间</td>
+				<td style="width: 20%;">操作</td>
+			</tr>
+			{volist name="allRoot" id="rootVal"}
+			<tr>
+				<td>{$i}</td>
+				<td>{$rootVal.root_name}</td>
+				<td>
+					{switch name="$rootVal.root_sex"}
+						{case value="1"}男{/case}
+						{case value="2"}女{/case}
+						{default /}未知
+					{/switch}
+				</td>
+				<td>{$rootVal.create_time}</td>
+				<td>{$rootVal.root_last_time|date="Y-m-d H:i:s",###}</td>
+				<td>
+					<img src="/static/images/edit.png" title="编辑" onclick="edit_root('{$rootVal.root_id}')" />
+					<img src="/static/images/delete2.png" title="删除" onclick="delete_root('{$rootVal.root_id}')" />
+				</td>
+			</tr>
+			{/volist}
+		</table>
+		<div class="but">
+			<button onclick="model_show('add_root')">添加用户</button>
+		</div>
+	</div>
+	<div class="bottom">
+			2017-2018 @coypyright by 铭玺大药房
+	</div>
+{layout name="layout" replace="[__REPLACE__]" /}

@@ -1,0 +1,86 @@
+<!-- 添加权限 隐藏模态框 -->
+	<div class="add_auth">
+		<div class="title">
+			<span >添加权限</span>
+			<span onclick="remove_motai('add_auth')"><img src="/static/images/cancel.png" /></span>
+		</div>
+		<div class="add_auth_table">
+			<form action="{:url('Auth/addAuth')}" method="post" name="addauth">
+			<table>
+				<tr>
+					<td>权限名：</td>
+					<td><input type="text" name="auth_name" /></td>
+				</tr>
+				<tr>
+					<td>权限父级：</td>
+					<td>
+						<select name="auth_pid">
+							<option value="0">顶级权限</option>
+							{volist name="firstLevel" id="firstVal"}
+								<option value="{$firstVal.auth_id}">---{$firstVal.auth_name}</option>
+								{volist name="secondLevel" id="secondVal"}
+									{if condition="$secondVal['auth_pid'] eq $firstVal['auth_id']"}
+										<option value="{$secondVal.auth_id}">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{$secondVal.auth_name}</option>
+									{/if}
+								{/volist}
+							{/volist}
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>控制器：</td>
+					<td><input type="text" name="auth_c" /></td>
+				</tr>
+				<tr>
+					<td>方法名：</td>
+					<td><input type="text" name="auth_a" /></td>
+				</tr>
+
+				<tr>
+					<td>&nbsp;</td>
+					<td><button onclick="submit_form('addauth')">确定</button></td>
+				</tr>
+			</table>
+			</form>
+		</div>
+	</div>
+	<div class="business_toumingceng"></div>
+<!--end 添加权限 -->
+
+	<div class="auth_main">
+		<div class="but">
+			<button onclick="model_show('add_auth')">添加权限</button>
+		</div>
+		<div class="auth_main_tab">
+		{volist name="firstLevel" id="val1"}
+			<div class="first_title">
+				<img src="/static/images/cancel.png"> {$val1.auth_name}
+			</div>
+			{volist name="secondLevel" id="val2"}
+				{if condition="$val2['auth_pid'] eq $val1['auth_id']"}
+				<div class="second_main">
+					<div class="second_title">
+						<img src="/static/images/cancel.png"> {$val2.auth_name}
+					</div>
+					<div class="third_title">
+					{volist name="thirdLevel" id="val3"}
+						{if condition="$val3['auth_pid'] eq $val2['auth_id']"}
+						<span><img src="/static/images/cancel.png"> {$val3.auth_name}</span>
+						{/if}
+					{/volist}
+						
+					</div>
+				</div>
+				{/if}
+			{/volist}
+			
+		{/volist}
+			
+		</div>
+
+		
+	</div>
+	<div class="bottom">
+			2017-2018 @coypyright by 铭玺大药房
+	</div>
+{layout name="layout" replace="[__REPLACE__]" /}
