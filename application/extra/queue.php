@@ -15,15 +15,15 @@ return [
     
     'salt' => 'haokuangjie', //加密的盐
     
-    'map_key' => '', //接入腾讯地图api key
-    'map_url' => '', //查询地图api 接口
+    'map_key' => 'M7KBZ-GQLLU-HMOV7-4VM4V-AFGU2-PQBJ4', //接入腾讯地图api key
+    'map_url' => 'http://apis.map.qq.com/ws/geocoder/v1/?address=%s&key=%s', //查询地图api 接口
         
-    'appid' => '',    //小程序appid
-    'secret' => '',     //小程序app_secret
+    'appid' => 'wx373b98d48c3fe840',    //小程序appid
+    'secret' => '64dc8d4f45ae502e46306f87b11bb3ef',     //小程序app_secret
     'login_url' => 'https://api.weixin.qq.com/sns/jscode2session?appid=%s&secret=%s&js_code=%s&grant_type=authorization_code',  //登录小程序 使用code换取openid
     'token_expire_time' => 7000, //令牌缓存时间
     
-    'notify_url' => '',  //微信支付回调接口
+    'notify_url' => 'https://yaostore.weixinhkj.xyz/api/v1/pay/notify',  //微信支付回调接口
     
     'access_token_url' => 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=%s&secret=%s',
         
@@ -49,4 +49,7 @@ return [
      * 大于多少天  客户端没有点收货，后台显示 确认收货
      */
     'order_shipped_days' => 15,
+
+    //websocket链接携带token参数值为此，代表是客服
+    'websocket_kefu' => 'haokuangjie',
 ];

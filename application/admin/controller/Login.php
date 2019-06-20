@@ -46,6 +46,12 @@ class Login extends Controller{
         }
     }
     
+    //测试websocket
+    public function test()
+    {
+        return view('test');
+    }
+    
     /*
      * 生成验证码
      */

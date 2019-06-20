@@ -7,7 +7,6 @@ use app\api\model\Order as OrderModal;
 use app\api\service\Pay as PayService;
 use app\api\service\WxNotify;
 use app\api\service\Token;
-
 class Pay extends BaseController{
     /*
      * 微信支付

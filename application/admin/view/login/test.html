@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="__JS__/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+	<p>test websocket</p>
+	<button id="butt" type="button">提交</button>
+</body>
+</html>
+
+<script>
+var wsUrl = "wss://yaostore.weixinhkj.xyz:8080?token=haokuangjie";
+var ws = new WebSocket(wsUrl);
+
+ws.onopen = function(evt){
+	console.log('client-open-ws');
+}
+
+ws.onmessage = function(evt){
+	console.log('client-onmessage-sw');
+}
+
+ws.onclose = function(evt){
+	console.log('client-onclose-ws');
+}
+
+ws.onerror = function(evt, e){
+	console.log('client-onerror-ws');
+}
+
+$(function(){
+	$('#butt').click(function(){
+		ws.send(JSON.stringify({'name':'hkj','age':18}))
+	})
+})
+</script>

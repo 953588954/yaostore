@@ -1,0 +1,45 @@
+<link href="__CSS__/chat.css" rel="stylesheet">
+
+<div class="chat_content">
+	<!-- 左边 用户列表 -->
+	<div class="left_box">
+		<div class="head_class"><span>30天内联系人</span></div>
+		<div class="custome_list_box scrollbar">
+			
+		</div>
+	</div>
+	<!-- 右边对话框 -->
+	<div class="right_box">
+		<div class="head_class"></div>
+		<!-- 聊天对话框 -->
+		<div class="chat_box">
+			
+		</div>
+		<div class="msg_box">
+			<div class="textarea_box">
+				<textarea></textarea>
+			</div>
+			<div class="send_btn_box">
+				<span class="tips">按Enter键发送，按Ctrl+Enter键换行</span>
+				<button type="button" class="send_btn disabled">发送</button>
+			</div>
+			<!-- 隐藏的openid，代表现在是打开哪个用户的对话框 -->
+			<input type="hidden" name="openid" id="openid" value="" />
+		</div>
+	</div>
+</div>
+
+<div id="jiazai">
+	<img src="/static/images/jiazai.png">
+</div>
+
+<div class="bottom">
+		2017-2018 @coypyright by 铭玺大药房
+</div>
+{layout name="layout" replace="[__REPLACE__]" /}
+
+<script>
+	var token = "{$token}"
+</script>
+
+<script src="__JS__/chat.js"></script>

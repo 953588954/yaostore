@@ -98,8 +98,15 @@ Route::post("api/:version/order_refund","api/:version.Order/refundOrder");
 //微信获取支付签名
 Route::get("api/:version/pay/pay","api/:version.Pay/pay");
 //微信支付 回调函数
-Route::any("api/:version/pay/notify","api/:version.Pay/receiveNotify");
+Route::post("api/:version/pay/notify","api/:version.Pay/receiveNotify");
 
 
 //测试从模板消息进入的参数
 Route::get("api/:version/test/template","api/:version.User/test");
+
+//小程序客户获取未读客服消息数量
+Route::get("api/:version/chat/noread/num","api/:version.Chat/noreadNum");
+//将未读消息变为已读
+Route::get("api/:version/chat/read","api/:version.Chat/statusToRead");
+//获取消息list
+Route::get("api/:version/chat/list","api/:version.Chat/getChatList");

@@ -197,7 +197,7 @@ class Order{
         foreach ($orderList as $key=>$val){
             $result[$key]['ord_id'] = $val['ord_id'];
             $result[$key]['ord_no'] = $val['ord_no'];
-            $result[$key]['ord_snap_img'] = $val['ord_snap_img'];
+            $result[$key]['ord_snap_img'] = getOrderImgUrl($val['ord_snap_img']);
             $result[$key]['ord_snap_name'] = $val['ord_snap_name'];
             $result[$key]['ord_status'] = $val['ord_status'];
             $result[$key]['ord_total_count'] = $val['ord_total_count'];

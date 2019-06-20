@@ -61,7 +61,6 @@ class Pay{
         //获取用户openid
         $openid = Token::getTokenValue('openid');
         $inputObj->SetOpenid($openid);
-        
     
         $paySign = $this->goUnifiedOrder($inputObj);
         return $paySign;

@@ -37,6 +37,9 @@ function curl_get($url){
     curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
     
     $file_contents = curl_exec($ch);
+    if (false == $file_contents) {
+        $file_contents = curl_error($ch);
+    }
     curl_close($ch);
     return $file_contents;
 }
@@ -82,6 +85,17 @@ function getRandChars($length=32)
     }
 
     return $str;
+}
+
+/**
+ * 兼容旧订单商品图片，使得图片路径不再是固定的，而是根据配置文件的域名来决定
+ */
+function getOrderImgUrl($url)
+{
+    if (strpos($url, 'http') === 0) {
+        $url = config('queue.basic_url') . strchr($url, 'uploads/');
+    }
+    return $url;
 }
 
 

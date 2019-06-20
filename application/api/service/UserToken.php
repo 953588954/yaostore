@@ -4,6 +4,7 @@ namespace app\api\service;
 use think\Exception;
 use app\lib\exception\GetOpenidException;
 use app\api\model\User;
+use think\Log;
 class UserToken extends Token{
     protected $code;
     protected $appid;

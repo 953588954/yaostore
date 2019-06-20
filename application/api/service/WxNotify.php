@@ -4,6 +4,7 @@ namespace app\api\service;
 use think\Loader;
 use think\Db;
 use app\api\model\Order;
+use think\Log;
 use app\api\model\OrderProduct;
 use app\api\model\Product;
 use think\Exception;
